@@ -136,9 +136,17 @@ paragraph_classified = dict()
 doc = Document('data/RICMS-Corrido.docx')
 
 # classificar os parágrafos
-for paragraph in doc.paragraphs[:10500]:
-    paragraph_classified = dict()
-    classify_paragraph(paragraph.text.strip())
+for paragraph in doc.paragraphs[:10500]:  # percorre todos os parágrafos do documento
+    paragraph_classified = dict()  # cria um novo dicionário para guardar a classificação do parágrafo
+
+    text_paragraph = paragraph.text.strip()
+
+    # substitui os símbolos <, > e & pelo html correspondente para evitar erros na sintaxe
+    text_paragraph = re.sub('<', '&lt;', text_paragraph)
+    text_paragraph = re.sub('>', '&gt;', text_paragraph)
+    text_paragraph = re.sub('&', '&amp;', text_paragraph)
+
+    classify_paragraph(text_paragraph)  # classifica o parágrafo a partir das expressões regulares
 
 # criar DataFrame e salvar em Excel
 df_paragraphs_RICMS = pd.DataFrame(paragraphs_RICMS)
@@ -183,11 +191,17 @@ for index, row in df_paragraphs_RICMS.iterrows():
 
 html_content += "</body>\n</html>"
 
+print('Html criado com sucesso!')
+
 # adicionado TAG STRONG nos artigos
-html_content = re.sub(pattern_artigo_com_numero, r'<strong>\g<0></strong>', html_content)
+html_content = re.sub(pattern_artigo_com_numero, r'<strong>\g<0></strong>', html_content) # '\g<0>' significa - a
+# parte da string que correspondeu à expressão regular informada
+
+
+print('TAGs adicionadas com sucesso!')
 
 # Salvando em um arquivo HTML
-with open("data/saida.html", "w", encoding="utf-8") as file:
+with open("../pagina-web/index.html", "w", encoding="utf-8") as file:
     file.write(html_content)
 
 print("Arquivo HTML gerado com sucesso!")
