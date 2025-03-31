@@ -122,7 +122,7 @@ main p {
     margin: 15px 0px;
 }
 
-main .capitulo, .secao, .subsecao, .livro, .titulo-capitulo-secao-ou-subsecao {
+main .capitulo, .secao, .subsecao, .livro, .anexo, .titulo-tabela, .titulo-capitulo-secao-ou-subsecao {
     font-size: 1.3em;
     text-align: center;
     font-weight: bold;
@@ -130,7 +130,7 @@ main .capitulo, .secao, .subsecao, .livro, .titulo-capitulo-secao-ou-subsecao {
     margin-top: 20px;
 }
 
-main .nota-explicativa {
+main .nota-explicativa, .texto-revogado {
     font-size: 0.8em;
     color: var(--cor04);
 }
@@ -160,6 +160,28 @@ main .paragrafo, .inciso, .alinea, .item {
 main .nao-classificado {
     background-color: var(--cor01);
 }
+
+main table {
+    width: 100%;
+    font-family: var(--fonte-padrao);
+}
+
+th, td {
+    min-width: 80px;
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+  
+  th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+  
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
 
 footer {
     background-color: var(--cor05);

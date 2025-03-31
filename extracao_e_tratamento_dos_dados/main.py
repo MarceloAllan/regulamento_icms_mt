@@ -49,6 +49,20 @@ def classify_paragraph(text, pos_no_doc):
             paragraphs_RICMS.append(paragraph_classified)
             return
 
+        case text_paragraph if validate_data(text_paragraph, pattern_anexo):
+            paragraph_classified['Index'] = pos_no_doc
+            paragraph_classified['Class'] = 'anexo'
+            paragraph_classified['Content'] = text_paragraph
+            paragraphs_RICMS.append(paragraph_classified)
+            return
+
+        case text_paragraph if validate_data(text_paragraph, pattern_titulo_tabela):
+            paragraph_classified['Index'] = pos_no_doc
+            paragraph_classified['Class'] = 'titulo-tabela'
+            paragraph_classified['Content'] = text_paragraph
+            paragraphs_RICMS.append(paragraph_classified)
+            return
+
         case text_paragraph if validate_data(text_paragraph, pattern_artigo):
             paragraph_classified['Index'] = pos_no_doc
             paragraph_classified['Class'] = 'artigo'
@@ -113,6 +127,13 @@ def classify_paragraph(text, pos_no_doc):
             paragraphs_RICMS.append(paragraph_classified)
             return
 
+        case text_paragraph if validate_data(text_paragraph, pattern_cfop):
+            paragraph_classified['Index'] = pos_no_doc
+            paragraph_classified['Class'] = 'cfop'
+            paragraph_classified['Content'] = text_paragraph
+            paragraphs_RICMS.append(paragraph_classified)
+            return
+
         case text_paragraph if validate_data(text_paragraph, pattern_item_nota_de_rodape):
             paragraph_classified['Index'] = pos_no_doc
             paragraph_classified['Class'] = 'item-nota-de-rodape'
@@ -123,6 +144,13 @@ def classify_paragraph(text, pos_no_doc):
         case text_paragraph if validate_data(text_paragraph, pattern_tabela):
             paragraph_classified['Index'] = pos_no_doc
             paragraph_classified['Class'] = 'tabela'
+            paragraph_classified['Content'] = text_paragraph
+            paragraphs_RICMS.append(paragraph_classified)
+            return
+
+        case text_paragraph if validate_data(text_paragraph, pattern_texto_revogado):
+            paragraph_classified['Index'] = pos_no_doc
+            paragraph_classified['Class'] = 'texto-revogado'
             paragraph_classified['Content'] = text_paragraph
             paragraphs_RICMS.append(paragraph_classified)
             return
@@ -145,12 +173,14 @@ def table_to_html(table):
     return html_table
 
 pattern_artigo = r'^\s?Art\.\s?'
-pattern_artigo_com_numero = r'Art\.\s\d+\°?(-[A-Z])?'
+pattern_artigo_com_numero = r'Art\.\s\d+(\.\d+)?\°?(-[A-Z])?'
 pattern_capitulo = r'^\s*(CAPÍTULO\s|DISPOSIÇÕES\sPRELIMINARES)'
 pattern_secao = r'^\s*Seção\s*'
-pattern_subsecao = r'^\s*Subseção\s*'
-pattern_titulo = r'^\s*Título\s*'
-pattern_livro = r'^\s*Livro\s*'
+pattern_subsecao = r'^Subseção\s*'
+pattern_titulo = r'^Título\s*'
+pattern_livro = r'^Livro\s*'
+pattern_anexo = r'^Anexo\s*'
+pattern_titulo_tabela = r'^Tabela\s*'
 pattern_titulo_capitulo_secao_ou_subsecao = r'^D[AO]S?\s[A-Z]+'
 pattern_alinea = r'^[a-z]{1,2}\-?\d?\)'
 pattern_item = r'^\d+\)'
@@ -161,6 +191,8 @@ pattern_nota_de_rodape = r'^\s*Notas?:'
 pattern_item_nota_de_rodape = r'^\d+-?[A-Z]?\.'
 pattern_paragrafo_em_branco = r'^\s*$'
 pattern_tabela = r'^<table'
+pattern_texto_revogado = r'^\(revogad'
+pattern_cfop = r'^\d\.\d{3}\s*\-\s*'
 pattern_paragrafo_vazio = r'^.$'
 
 paragraphs_RICMS = list()
@@ -215,6 +247,10 @@ html_tags_for_class_paragraph = {  # lista a TAG que será atribuída a cada cla
     'subsecao': 'h3',
     'livro': 'h1',
     'tabela': 'div',
+    'titulo-tabela': 'h2',
+    'anexo': 'h2',
+    'texto-revogado': 'p',
+    'cfop': 'p',
     'nao-classificado': 'p'
 }
 
@@ -267,7 +303,6 @@ print('Html criado com sucesso!')
 # adicionado TAG STRONG nos artigos
 html_content = re.sub(pattern_artigo_com_numero, r'<strong>\g<0></strong>', html_content) # '\g<0>' significa - a
 # parte da string que correspondeu à expressão regular informada
-
 
 print('TAGs adicionadas com sucesso!')
 
