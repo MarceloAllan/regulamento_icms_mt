@@ -139,14 +139,14 @@ doc = Document('data/RICMS-Corrido.docx')
 for paragraph in doc.paragraphs[:10500]:  # percorre todos os parágrafos do documento
     paragraph_classified = dict()  # cria um novo dicionário para guardar a classificação do parágrafo
 
-    text_paragraph = paragraph.text.strip()
+    content_paragraph = paragraph.text.strip()
 
     # substitui os símbolos <, > e & pelo html correspondente para evitar erros na sintaxe
-    text_paragraph = re.sub('<', '&lt;', text_paragraph)
-    text_paragraph = re.sub('>', '&gt;', text_paragraph)
-    text_paragraph = re.sub('&', '&amp;', text_paragraph)
+    content_paragraph = re.sub('<', '&lt;', content_paragraph)
+    content_paragraph = re.sub('>', '&gt;', content_paragraph)
+    content_paragraph = re.sub('&', '&amp;', content_paragraph)
 
-    classify_paragraph(text_paragraph)  # classifica o parágrafo a partir das expressões regulares
+    classify_paragraph(content_paragraph)  # classifica o parágrafo a partir das expressões regulares
 
 # criar DataFrame e salvar em Excel
 df_paragraphs_RICMS = pd.DataFrame(paragraphs_RICMS)
@@ -155,7 +155,8 @@ df_paragraphs_RICMS.to_excel('data/paragrafos_classificados.xlsx')
 print('Parágrafos classificados com sucesso!')
 
 # criando um arquivo HTML a partir do DF
-html_tags_for_class_paragraph = {
+
+html_tags_for_class_paragraph = {  # lista a TAG que será atribuída a cada classificação de parágrafo
     'capitulo': 'h2',
     'artigo': 'p',
     'paragrafo': 'p',
@@ -169,7 +170,8 @@ html_tags_for_class_paragraph = {
     'item-nota-de-rodape': 'p',
     'titulo': 'h2',
     'subsecao': 'h3',
-    'livro': 'h1'
+    'livro': 'h1',
+    'nao-classificado': 'p'
 }
 
 html_content = """<!DOCTYPE html>
@@ -183,9 +185,12 @@ html_content = """<!DOCTYPE html>
 
 # Colocando o texto dentro das TAGs adequadas
 for index, row in df_paragraphs_RICMS.iterrows():
-    if row['Class'] in html_tags_for_class_paragraph.keys():
-        class_name = row['Class'].lower().replace(' ', '-')
-        tag = html_tags_for_class_paragraph.get(row['Class'])
+    if row['Class'] in html_tags_for_class_paragraph.keys():  # os parágrafos que não estiverem classificações
+        # listadas em html_tags_for_class_paragraph não serão adicionados ao HTML
+        class_name = row['Class'].lower().replace(' ', '-')  # define o nome da classe que será atribuída ao elemento
+        # com base no conteúdo da coluna 'Class'
+        tag = html_tags_for_class_paragraph.get(row['Class'])  # procura no dicionário html_tags_for_class_paragraph o
+        # valor correspondente a 'Key' que é a classe do parágrafo
 
         html_content += f"<{tag} class='{class_name}' id='{index}'>{row['Content']}</{tag}>\n"
 
