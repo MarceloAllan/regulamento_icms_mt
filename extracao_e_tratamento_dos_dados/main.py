@@ -1,4 +1,4 @@
-from docx import Document
+from docx import Document # type: ignore
 import pandas as pd
 import re
 
@@ -181,7 +181,12 @@ html_content = """<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RICMS/MT</title>
 </head>
-<body>\n"""
+<body>
+    <header class="cabecalho">
+    
+    </header>
+    <main>
+"""
 
 # Colocando o texto dentro das TAGs adequadas
 for index, row in df_paragraphs_RICMS.iterrows():
@@ -194,7 +199,12 @@ for index, row in df_paragraphs_RICMS.iterrows():
 
         html_content += f"<{tag} class='{class_name}' id='{index}'>{row['Content']}</{tag}>\n"
 
-html_content += "</body>\n</html>"
+html_content += """
+    </main>
+<footer>
+</footer>
+</body>
+</html>"""
 
 print('Html criado com sucesso!')
 
@@ -206,7 +216,7 @@ html_content = re.sub(pattern_artigo_com_numero, r'<strong>\g<0></strong>', html
 print('TAGs adicionadas com sucesso!')
 
 # Salvando em um arquivo HTML
-with open("../pagina-web/index.html", "w", encoding="utf-8") as file:
+with open("data/index.html", "w", encoding="utf-8") as file:
     file.write(html_content)
 
 print("Arquivo HTML gerado com sucesso!")
