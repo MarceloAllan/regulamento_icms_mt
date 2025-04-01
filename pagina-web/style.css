@@ -18,6 +18,12 @@
 * {
     margin: 0px;
     padding: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--cor01);
+    font-family: var(--fonte-padrao);
 }
 
 .cabecalho {
@@ -69,20 +75,84 @@
     background-color: var(--cor04);
 }
 
+div#container-principal {
+    margin-top: 20px;
+    margin-bottom: 20px;
 
-body {
+    display: flex;
+    position: relative; /* o container passa a funcionar como âncora para a sidebar que possui possition: relative */
+    width: 100%;
+}
+
+nav#sidebar {
+    position: fixed;
+    top: 20vh; /*100px do header + 20px do padding para alinhar com o 'main'*/
+    bottom: 0px;
+    z-index: 1000;
+
+    height: 70vh;
+
+    background-color: var(--cor00);
+    border-radius: 0px 10px 10px 0px;
+    border: 1px solid var(--cor05);
+    box-shadow: 0px 7px 9px rgba(0, 0, 0, 0.307);
+
+    overflow-y: auto; /* Ativa o scroll vertical apenas na sidebar */
+    scrollbar-width: none; /* Esconde a scrollbar no Firefox */
+
+    transition: transform 0.3s ease;
+}
+
+nav.sidebar-hidden {
+    transform: translateX(-100%); /* Move a sidebar para a esquerda */
+}
+
+nav#sidebar::-webkit-scrollbar {
+    display: none; /* Esconde a scrollbar no Chrome, Safari e Edge */
+}
+
+nav#sidebar li {
+    margin-bottom: 100px;
+    padding: 20px;
+}
+
+nav#sidebar li a {
+    color: var(--cor05);
+    text-decoration: none;
+
+    padding: 5px;
+    border-radius: 5px;
+}
+
+nav#sidebar li a:hover {
     background-color: var(--cor01);
-    font-family: var(--fonte-padrao);
+}
+
+#toggle-sidebar {
+    position: fixed;
+    top: 14vh;
+    left: 10px;
+    z-index: 1000; /* Para ficar sobre os outros elementos */
+    
+    background-color: var(--cor05);
+    color: var(--cor00);
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 20px;
+    border-radius: 5px;
+}
+
+#toggle-sidebar:hover {
+    background-color: var(--cor04);
 }
 
 main {
     background-color: var(--cor00);
 
-    max-width: 1000px;
+    max-width: 1200px;
     min-width: 300px;
     margin: auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
     border-radius: 10px;
     padding: 20px;
 
