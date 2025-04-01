@@ -11,3 +11,22 @@ document.getElementById("toggle-sidebar").addEventListener("click", function () 
         sidebar.offsetHeight; // Lê uma propriedade para forçar o reflow (necessário para reiniciar a animação)
     }
 });
+
+// Referenciar os elementos
+const searchBar = document.getElementById("search-bar");
+const listItems = document.querySelectorAll("nav#sidebar li");
+
+// Adicionar evento de input na barra de pesquisa
+searchBar.addEventListener("input", () => {
+    const query = searchBar.value.toLowerCase();
+
+    // Filtrar os itens da lista
+    listItems.forEach((item) => {
+        const text = item.textContent.toLowerCase();
+        if (text.includes(query)) {
+            item.style.display = ""; // Mostrar o item
+        } else {
+            item.style.display = "none"; // Esconder o item
+        }
+    });
+});

@@ -172,6 +172,17 @@ def table_to_html(table):
 
     return html_table
 
+def create_summary_list(df):
+    classes_for_summary = ['capitulo', 'secao','titulo','subsecao','livro','titulo-tabela','anexo']
+    html_summary_list = ""
+    for index, row in df.iterrows():   
+        if row['Class'] in classes_for_summary:
+            class_name = row['Class'].lower().replace(' ', '-')  
+            html_summary_list += f"<li class='{class_name}'><a href='#{index}'>{row['Content']}</a></li>\n"
+    print('Sumário criado com sucesso!')
+    return html_summary_list
+
+
 pattern_artigo = r'^\s?Art\.\s?'
 pattern_artigo_com_numero = r'Art\.\s\d+(\.\d+)?\°?(-[A-Z])?'
 pattern_capitulo = r'^\s*(CAPÍTULO\s|DISPOSIÇÕES\sPRELIMINARES)'
@@ -255,7 +266,7 @@ html_tags_for_class_paragraph = {  # lista a TAG que será atribuída a cada cla
 }
 
 # início do código HTML
-html_content = """<!DOCTYPE html>
+html_content = f"""<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -276,7 +287,14 @@ html_content = """<!DOCTYPE html>
         </nav>
         <div class="barra-degrade"></div>
     </header>
-    <main>
+    <div id="container-principal">
+      <button id="toggle-sidebar">☰</button>
+      <nav id="sidebar">
+        <ol>
+          {create_summary_list(df_paragraphs_RICMS)}
+        </ol>
+      </nav>
+        <main>
 """
 
 # Colocando o texto dentro das TAGs adequadas
@@ -291,11 +309,13 @@ for index, row in df_paragraphs_RICMS.iterrows():
         html_content += f"<{tag} class='{class_name}' id='{index}'>{row['Content']}</{tag}>\n"
 
 html_content += """
-    </main>
+        </main>
+    </div>
 <footer>
     <p>Site em desenvolvimento por Marcelo Allan - FTE da SEFAZ/MT</p>
 </footer>
 </body>
+    <script src="script.js"></script>
 </html>"""
 
 print('Html criado com sucesso!')

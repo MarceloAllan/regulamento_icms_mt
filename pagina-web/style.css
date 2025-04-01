@@ -91,6 +91,7 @@ nav#sidebar {
     z-index: 1000;
 
     height: 70vh;
+    max-width: 300px;
 
     background-color: var(--cor00);
     border-radius: 0px 10px 10px 0px;
@@ -111,14 +112,35 @@ nav#sidebar::-webkit-scrollbar {
     display: none; /* Esconde a scrollbar no Chrome, Safari e Edge */
 }
 
+nav#sidebar input#search-bar {
+    width: 100%;
+    padding: 8px;
+    margin: 10px;
+    box-sizing: border-box;
+    border: 1px solid var(--cor05);
+    border-radius: 4px;
+}
+
 nav#sidebar li {
-    margin-bottom: 100px;
-    padding: 20px;
+    padding: 5px;
+    margin-left: 10px;
+    list-style: none;
+}
+
+nav#sidebar li.secao{
+    margin-left: 40px;
+    list-style: disc;
+}
+
+nav#sidebar li.subsecao, li.titulo-tabela{
+    margin-left: 60px;
+    list-style: circle;
 }
 
 nav#sidebar li a {
     color: var(--cor05);
     text-decoration: none;
+    font-size: 1em;
 
     padding: 5px;
     border-radius: 5px;
@@ -192,7 +214,7 @@ main p {
     margin: 15px 0px;
 }
 
-main .capitulo, .secao, .subsecao, .livro, .anexo, .titulo-tabela, .titulo-capitulo-secao-ou-subsecao {
+main h2.capitulo, h2.secao, h3.subsecao, h1.livro, h2.anexo, h2.titulo, h2.titulo-tabela, h2.titulo-capitulo-secao-ou-subsecao {
     font-size: 1.3em;
     text-align: center;
     font-weight: bold;
