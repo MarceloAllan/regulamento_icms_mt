@@ -2,6 +2,12 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:ital,wght@0,100..900;1,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
+@media (max-width: 750px) {  /* Esconde e desativa a sidebar em telas < 750px vw*/
+    nav#sidebar, button#toggle-sidebar {
+        display: none;
+        pointer-events: none; /* Desativa a interação com o elemento */
+    }
+}
 
 :root{
     --cor00: #ffffff;
@@ -20,6 +26,7 @@
     padding: 0px;
     box-sizing: border-box;
 }
+
 
 body {
     background-color: var(--cor01);
@@ -87,15 +94,15 @@ div#container-principal {
 nav#sidebar {
     position: fixed;
     top: 20vh; /*100px do header + 20px do padding para alinhar com o 'main'*/
-    bottom: 0px;
+    left: 0px;
     z-index: 1000;
 
     height: 70vh;
-    max-width: 300px;
+    width: 300px;
 
     background-color: var(--cor00);
     border-radius: 0px 10px 10px 0px;
-    border: 1px solid var(--cor05);
+    /*border: 1px solid var(--cor05);*/
     box-shadow: 0px 7px 9px rgba(0, 0, 0, 0.307);
 
     overflow-y: auto; /* Ativa o scroll vertical apenas na sidebar */
@@ -113,7 +120,7 @@ nav#sidebar::-webkit-scrollbar {
 }
 
 nav#sidebar input#search-bar {
-    width: 100%;
+    width: 280px;
     padding: 8px;
     margin: 10px;
     box-sizing: border-box;
@@ -122,9 +129,14 @@ nav#sidebar input#search-bar {
 }
 
 nav#sidebar li {
-    padding: 5px;
     margin-left: 10px;
+    margin-right: 10px;
     list-style: none;
+    
+}
+
+nav#sidebar li.titulo, li.livro, li.anexo {
+    border-bottom: 1px solid rgba(128, 128, 128, 0.25);
 }
 
 nav#sidebar li.secao{
@@ -144,6 +156,9 @@ nav#sidebar li a {
 
     padding: 5px;
     border-radius: 5px;
+
+    display: block;
+
 }
 
 nav#sidebar li a:hover {
@@ -173,11 +188,11 @@ main {
     background-color: var(--cor00);
 
     max-width: 1200px;
-    min-width: 300px;
+    /*min-width: 300px;*/
     margin: auto;
     border-radius: 10px;
     padding: 20px;
-
+    overflow-x: hidden;
     box-shadow: 0px 7px 9px rgba(0, 0, 0, 0.307);
 }
 
