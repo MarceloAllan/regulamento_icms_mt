@@ -314,8 +314,8 @@ html_content += """
 <footer>
     <p>Site em desenvolvimento por Marcelo Allan - FTE da SEFAZ/MT</p>
 </footer>
-</body>
     <script src="script.js"></script>
+</body>
 </html>"""
 
 print('Html criado com sucesso!')
