@@ -18,6 +18,7 @@ html_tags_for_class_paragraph = {  # lista a TAG que será atribuída a cada cla
     'anexo': 'h2',
     'texto-revogado': 'p',
     'cfop': 'p',
+    'indice-remissivo': 'p',
     'nao-classificado': 'p'
 }
 
@@ -43,3 +44,4 @@ pattern_tabela = r'^<table'
 pattern_texto_revogado = r'^\(revogad'
 pattern_cfop = r'^\d\.\d{3}\s*\-\s*'
 pattern_paragrafo_vazio = r'^.$'
+pattern_indice_remissivo = r'^\s*VIDE ÍNDICE REMISSIVO\s*$'

@@ -7,6 +7,7 @@ import rules_and_definitions
 def validate_data(data, pattern):
     return bool(re.match(pattern, data, re.IGNORECASE))
 
+
 def classify_paragraph(text, pos_no_doc):
     match text:
         case text_paragraph if validate_data(text_paragraph, rules_and_definitions.pattern_capitulo):
@@ -157,6 +158,13 @@ def classify_paragraph(text, pos_no_doc):
             paragraphs_RICMS.append(paragraph_classified)
             return
 
+        case text_paragraph if validate_data(text_paragraph, rules_and_definitions.pattern_indice_remissivo):
+            paragraph_classified['Index'] = pos_no_doc
+            paragraph_classified['Class'] = 'indice-remissivo'
+            paragraph_classified['Content'] = text_paragraph
+            paragraphs_RICMS.append(paragraph_classified)
+            return
+
         case text_paragraph:
             paragraph_classified['Index'] = pos_no_doc
             paragraph_classified['Class'] = 'nao-classificado'
@@ -196,11 +204,10 @@ for index, elemento in enumerate(doc.element.body):
         paragraph_classified = dict()  # cria um novo dicionário para guardar a classificação do parágrafo
 
         content_paragraph = elemento.text.strip()
-
-        # substitui os símbolos <, > e & pelo html correspondente para evitar erros na sintaxe
-        content_paragraph = re.sub('<', '&lt;', content_paragraph)
-        content_paragraph = re.sub('>', '&gt;', content_paragraph)
-        content_paragraph = re.sub('&', '&amp;', content_paragraph)
+        # Normalização para remover espaços invisíveis
+        content_paragraph = re.sub(r'[\u200b\u200c\u200d\uFEFF]', '', content_paragraph)  # remove espaços invisíveis comuns
+        content_paragraph = re.sub(r'\s+', ' ', content_paragraph).strip()  # normaliza espaços em branco
+        content_paragraph = content_paragraph.replace('<', '&lt;').replace('>', '&gt;').replace('&', '&amp;')
 
         classify_paragraph(content_paragraph, index)  # classifica o parágrafo a partir das expressões regulares
 
@@ -282,7 +289,7 @@ html_content = re.sub(rules_and_definitions.pattern_artigo_com_numero, r'<strong
 print('TAGs adicionadas com sucesso!')
 
 # Salvando em um arquivo HTML
-with open("data/index.html", "w", encoding="utf-8") as file:
+with open("../pagina-web/index.html", "w", encoding="utf-8") as file:
     file.write(html_content)
 
 print("Arquivo HTML gerado com sucesso!")
