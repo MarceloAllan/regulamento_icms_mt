@@ -43,7 +43,7 @@ body {
 .cabecalho h1{
     color: var(--cor00);
     font-family: var(--fonte-padrao);
-    font-size: 2em;
+    font-size: 2.5em;
     text-align: center;
     width: 100%;
 
@@ -67,7 +67,7 @@ body {
 
 .menu a {
     text-decoration: none;
-    font-size: 0.8em;
+    font-size: 1em;
     color: var(--cor00);
 
     padding: 6px 5px 5px 5px;
@@ -187,7 +187,7 @@ nav#sidebar li a:hover {
 main {
     background-color: var(--cor00);
 
-    max-width: 1200px;
+    max-width: 1400px;
     /*min-width: 300px;*/
     margin: auto;
     border-radius: 10px;
@@ -201,7 +201,7 @@ main .titulo-regulamento {
     text-align: center;
 
     font-family: var(--fonte-padrao);
-    font-size: 1.1em;
+    font-size: 1.2em;
     font-weight: bold;
 
     max-width: 700px;
@@ -216,7 +216,7 @@ main .norma-regulamento {
 }
 
 main .nota-de-consolidacao {
-    font-size: 0.8em;
+    font-size: 1em;
     color: var(--cor06);
 }
 
@@ -225,12 +225,13 @@ main p {
     color: black;
     text-align: justify;
     line-height: 1.75em;
+    font-size: 1.3em;
 
     margin: 15px 0px;
 }
 
 main h2.capitulo, h2.secao, h3.subsecao, h1.livro, h2.anexo, h2.titulo, h2.titulo-tabela, h2.titulo-capitulo-secao-ou-subsecao {
-    font-size: 1.3em;
+    font-size: 1.5em;
     text-align: center;
     font-weight: bold;
 
@@ -238,7 +239,7 @@ main h2.capitulo, h2.secao, h3.subsecao, h1.livro, h2.anexo, h2.titulo, h2.titul
 }
 
 main .nota-explicativa, .texto-revogado {
-    font-size: 0.8em;
+    font-size: 1em;
     color: var(--cor04);
 }
 
@@ -261,7 +262,7 @@ main .item-nota-de-rodape {
 }
 
 main .paragrafo, .inciso, .alinea, .item {
-    text-indent: 25px;
+    text-indent: 35px;
 }
 
 main .nao-classificado {
