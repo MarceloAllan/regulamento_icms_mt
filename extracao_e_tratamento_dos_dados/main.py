@@ -250,7 +250,7 @@ html_content = f"""<!DOCTYPE html>
     </header>
     <div id="container-principal">
       <button id="toggle-sidebar">☰</button>
-      <nav id="sidebar">
+      <nav id="sidebar", class="sidebar-hidden">
       <input type="text" id="search-bar" placeholder="Pesquisar...">
         <ol>
           {create_summary_list(df_paragraphs_RICMS)}
