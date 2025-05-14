@@ -1,6 +1,12 @@
 from docx import Document # type: ignore
 import pandas as pd
 import re
+import logging
+
+logging.basicConfig(
+    level=logging.INFO,  # Mínimo nível de log que será exibido
+    format='%(asctime)s - %(levelname)s - %(message)s'  # Formato das mensagens
+)
 
 import rules_and_definitions
 
@@ -165,6 +171,27 @@ def classify_paragraph(text, pos_no_doc):
             paragraphs_RICMS.append(paragraph_classified)
             return
 
+        case text_paragraph if validate_data(text_paragraph, rules_and_definitions.pattern_titulo_regulamento):
+            paragraph_classified['Index'] = pos_no_doc
+            paragraph_classified['Class'] = 'titulo-regulamento'
+            paragraph_classified['Content'] = text_paragraph
+            paragraphs_RICMS.append(paragraph_classified)
+            return
+
+        case text_paragraph if validate_data(text_paragraph, rules_and_definitions.pattern_norma_regulamento):
+            paragraph_classified['Index'] = pos_no_doc
+            paragraph_classified['Class'] = 'norma-regulamento'
+            paragraph_classified['Content'] = text_paragraph
+            paragraphs_RICMS.append(paragraph_classified)
+            return
+
+        case text_paragraph if validate_data(text_paragraph, rules_and_definitions.pattern_nota_de_consolidacao):
+            paragraph_classified['Index'] = pos_no_doc
+            paragraph_classified['Class'] = 'nota-de-consolidacao'
+            paragraph_classified['Content'] = text_paragraph
+            paragraphs_RICMS.append(paragraph_classified)
+            return
+
         case text_paragraph:
             paragraph_classified['Index'] = pos_no_doc
             paragraph_classified['Class'] = 'nao-classificado'
@@ -184,13 +211,18 @@ def table_to_html(table):
 
 def create_summary_list(df):
     classes_for_summary = ['capitulo', 'secao','titulo','subsecao','livro','titulo-tabela','anexo']
-    html_summary_list = ""
+    classes_for_subtitle = ['titulo-capitulo-secao-ou-subsecao']
+    summary_html = ""
     for index, row in df.iterrows():   
         if row['Class'] in classes_for_summary:
-            class_name = row['Class'].lower().replace(' ', '-')  
-            html_summary_list += f"<li class='{class_name}'><a href='#{index}'>{row['Content']}</a></li>\n"
-    print('Sumário criado com sucesso!')
-    return html_summary_list
+            class_name = row['Class'].lower().replace(' ', '-')
+            next_paragraph = df.iloc[index + 1]
+            if next_paragraph['Class'] in classes_for_subtitle:
+                summary_html += f"<li class='{class_name}'><a href='#{index}'>{row['Content']} - {next_paragraph['Content'].lower()}</a></li>\n"
+            else:
+                summary_html += f"<li class='{class_name}'><a href='#{index}'>{row['Content']}</a></li>\n"
+    logging.info('Sumário criado com sucesso!')
+    return summary_html
 
 paragraphs_RICMS = list()
 paragraph_classified = dict()
@@ -223,7 +255,7 @@ for index, elemento in enumerate(doc.element.body):
 df_paragraphs_RICMS = pd.DataFrame(paragraphs_RICMS)
 df_paragraphs_RICMS.to_excel('data/paragrafos_classificados.xlsx')
 
-print('Parágrafos classificados com sucesso!')
+logging.info('Parágrafos classificados com sucesso!')
 
 # criando um arquivo HTML a partir do DF
 # início do código HTML
@@ -280,16 +312,16 @@ html_content += """
 </body>
 </html>"""
 
-print('Html criado com sucesso!')
+logging.info('Html criado com sucesso!')
 
 # adicionado TAG STRONG nos artigos
 html_content = re.sub(rules_and_definitions.pattern_artigo_com_numero, r'<strong>\g<0></strong>', html_content) # '\g<0>' significa - a
 # parte da string que correspondeu à expressão regular informada
 
-print('TAGs adicionadas com sucesso!')
+logging.info('TAGs adicionadas com sucesso!')
 
 # Salvando em um arquivo HTML
 with open("../pagina-web/index.html", "w", encoding="utf-8") as file:
     file.write(html_content)
 
-print("Arquivo HTML gerado com sucesso!")
+logging.info("Arquivo HTML gerado com sucesso!")

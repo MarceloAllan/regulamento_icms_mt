@@ -98,7 +98,7 @@ nav#sidebar {
     z-index: 1000;
 
     height: 70vh;
-    width: 300px;
+    width: 400px;
 
     background-color: var(--cor00);
     border-radius: 0px 10px 10px 0px;
@@ -120,7 +120,7 @@ nav#sidebar::-webkit-scrollbar {
 }
 
 nav#sidebar input#search-bar {
-    width: 280px;
+    width: 380px;
     padding: 8px;
     margin: 10px;
     box-sizing: border-box;

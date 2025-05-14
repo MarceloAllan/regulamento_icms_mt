@@ -19,6 +19,9 @@ html_tags_for_class_paragraph = {  # lista a TAG que será atribuída a cada cla
     'texto-revogado': 'p',
     'cfop': 'p',
     'indice-remissivo': 'p',
+    'titulo-regulamento': 'p',
+    'norma-regulamento': 'p',
+    'nota-de-consolidacao': 'p',
     'nao-classificado': 'p'
 }
 
@@ -36,7 +39,7 @@ pattern_alinea = r'^[a-z]{1,2}\-?\d?\)'
 pattern_item = r'^\d+\)'
 pattern_paragrafo = r'^\s*(§\s*\d+|Parágrafo\súnico)'
 pattern_inciso = r'^(?:[IVXLCDM]+[\-\s*])'
-pattern_nota_explicativa = r'^\s*Nota\sexplicativa'
+pattern_nota_explicativa = r'^\s*Notas?\sexplicativas?'
 pattern_nota_de_rodape = r'^\s*Notas?:'
 pattern_item_nota_de_rodape = r'^\d+-?[A-Z]?\.'
 pattern_paragrafo_em_branco = r'^\s*$'
@@ -45,3 +48,6 @@ pattern_texto_revogado = r'^\(revogad'
 pattern_cfop = r'^\d\.\d{3}\s*\-\s*'
 pattern_paragrafo_vazio = r'^.$'
 pattern_indice_remissivo = r'^\s*VIDE ÍNDICE REMISSIVO\s*$'
+pattern_titulo_regulamento = r'^REGULAMENTO DO IMPOSTO SOBRE OPERAÇÕES RELATIVAS À CIRCULAÇÃO DE MERCADORIAS E SOBRE PRESTAÇÕES DE SERVIÇOS DE TRANSPORTE INTERESTADUAL E INTERMUNICIPAL E DE COMUNICAÇÃO – ICMS$'
+pattern_norma_regulamento = r'^\(A QUE SE REFERE O DECRETO N° 2.212, DE 20 DE MARÇO DE 2014\)$'
+pattern_nota_de_consolidacao = r'^Nota de Consolidação:'
