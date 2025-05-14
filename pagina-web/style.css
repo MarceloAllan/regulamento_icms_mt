@@ -296,7 +296,7 @@ footer {
     padding: 5px;
 }
 
-footer p {
+footer p, a {
     text-align: center;
     color: var(--cor00);
 }
