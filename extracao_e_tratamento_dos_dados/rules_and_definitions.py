@@ -22,6 +22,7 @@ html_tags_for_class_paragraph = {  # lista a TAG que será atribuída a cada cla
     'titulo-regulamento': 'p',
     'norma-regulamento': 'p',
     'nota-de-consolidacao': 'p',
+    'observacao': 'p',
     'nao-classificado': 'p'
 }
 
@@ -36,7 +37,7 @@ pattern_anexo = r'^Anexo\s*'
 pattern_titulo_tabela = r'^Tabela\s*'
 pattern_titulo_capitulo_secao_ou_subsecao = r'^D[AO]S?\s[A-Z]+'
 pattern_alinea = r'^[a-z]{1,2}\-?\d?\)'
-pattern_item = r'^\d+\)'
+pattern_item = r'^\d+(\.\d+)?\)'
 pattern_paragrafo = r'^\s*(§\s*\d+|Parágrafo\súnico)'
 pattern_inciso = r'^(?:[IVXLCDM]+[\-\s*])'
 pattern_nota_explicativa = r'^\s*Notas?\sexplicativas?'
@@ -51,3 +52,4 @@ pattern_indice_remissivo = r'^\s*VIDE ÍNDICE REMISSIVO\s*$'
 pattern_titulo_regulamento = r'^REGULAMENTO DO IMPOSTO SOBRE OPERAÇÕES RELATIVAS À CIRCULAÇÃO DE MERCADORIAS E SOBRE PRESTAÇÕES DE SERVIÇOS DE TRANSPORTE INTERESTADUAL E INTERMUNICIPAL E DE COMUNICAÇÃO – ICMS$'
 pattern_norma_regulamento = r'^\(A QUE SE REFERE O DECRETO N° 2.212, DE 20 DE MARÇO DE 2014\)$'
 pattern_nota_de_consolidacao = r'^Nota de Consolidação:'
+pattern_observacao = r'^Obs\.'

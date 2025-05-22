@@ -192,6 +192,13 @@ def classify_paragraph(text, pos_no_doc):
             paragraphs_RICMS.append(paragraph_classified)
             return
 
+        case text_paragraph if validate_data(text_paragraph, rules_and_definitions.pattern_observacao):
+            paragraph_classified['Index'] = pos_no_doc
+            paragraph_classified['Class'] = 'observacao'
+            paragraph_classified['Content'] = text_paragraph
+            paragraphs_RICMS.append(paragraph_classified)
+            return
+
         case text_paragraph:
             paragraph_classified['Index'] = pos_no_doc
             paragraph_classified['Class'] = 'nao-classificado'

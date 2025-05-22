@@ -252,7 +252,7 @@ main .nota-de-rodape {
     margin-bottom: 0px;
 }
 
-main .item-nota-de-rodape {
+main .item-nota-de-rodape, main .observacao {
     font-size: 0.8em;
     color: var(--cor04);
 
@@ -266,7 +266,7 @@ main .paragrafo, .inciso, .alinea, .item {
 }
 
 main .nao-classificado {
-    background-color: var(--cor01);
+    background-color: var(--cor00);
 }
 
 main table {
