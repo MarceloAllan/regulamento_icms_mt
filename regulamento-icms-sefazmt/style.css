@@ -1,0 +1,302 @@
+@charset 'UFT-8';
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:ital,wght@0,100..900;1,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+@media (max-width: 750px) {  /* Esconde e desativa a sidebar em telas < 750px vw*/
+    nav#sidebar, button#toggle-sidebar {
+        display: none;
+        pointer-events: none; /* Desativa a interação com o elemento */
+    }
+}
+
+:root{
+    --cor00: #ffffff;
+    --cor01: #e7e7e7;
+    --cor02: #aaf491;
+    --cor03: #30D3AD;
+    --cor04: #0659A3;
+    --cor05: #093089;
+    --cor06: #ff0000;
+
+    --fonte-padrao: 'Roboto', Arial, Verdana, Helvetica, sans-serif;
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+
+body {
+    background-color: var(--cor01);
+    font-family: var(--fonte-padrao);
+}
+
+.cabecalho {
+    background-color: var(--cor05);
+    padding-top: 20px;
+
+    box-shadow: 0px 7px 9px rgba(0, 0, 0, 0.307);
+}
+
+.cabecalho h1{
+    color: var(--cor00);
+    font-family: var(--fonte-padrao);
+    font-size: 2.5em;
+    text-align: center;
+    width: 100%;
+
+}
+
+.barra-degrade {
+    background-image: linear-gradient(to right, var(--cor04), var(--cor03),  var(--cor02));
+    height: 10px;
+}
+
+.menu {
+    display: flex;
+    gap: 15px;
+
+    padding: 10px 0px 5px 20px;
+}
+
+.menu li {
+    list-style: none;
+}
+
+.menu a {
+    text-decoration: none;
+    font-size: 1em;
+    color: var(--cor00);
+
+    padding: 6px 5px 5px 5px;
+
+    transition-duration: 0.5s;
+    border-radius: 3px;
+
+    white-space: nowrap;
+}
+
+.menu a:hover{
+    background-color: var(--cor04);
+}
+
+div#container-principal {
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    display: flex;
+    position: relative; /* o container passa a funcionar como âncora para a sidebar que possui possition: relative */
+    width: 100%;
+}
+
+nav#sidebar {
+    position: fixed;
+    top: 20vh; /*100px do header + 20px do padding para alinhar com o 'main'*/
+    left: 0px;
+    z-index: 1000;
+
+    height: 70vh;
+    width: 400px;
+
+    background-color: var(--cor00);
+    border-radius: 0px 10px 10px 0px;
+    /*border: 1px solid var(--cor05);*/
+    box-shadow: 0px 7px 9px rgba(0, 0, 0, 0.307);
+
+    overflow-y: auto; /* Ativa o scroll vertical apenas na sidebar */
+    scrollbar-width: none; /* Esconde a scrollbar no Firefox */
+
+    transition: transform 0.3s ease;
+}
+
+nav.sidebar-hidden {
+    transform: translateX(-100%); /* Move a sidebar para a esquerda */
+}
+
+nav#sidebar::-webkit-scrollbar {
+    display: none; /* Esconde a scrollbar no Chrome, Safari e Edge */
+}
+
+nav#sidebar input#search-bar {
+    width: 380px;
+    padding: 8px;
+    margin: 10px;
+    box-sizing: border-box;
+    border: 1px solid var(--cor05);
+    border-radius: 4px;
+}
+
+nav#sidebar li {
+    margin-left: 10px;
+    margin-right: 10px;
+    list-style: none;
+    
+}
+
+nav#sidebar li.titulo, li.livro, li.anexo {
+    border-bottom: 1px solid rgba(128, 128, 128, 0.25);
+}
+
+nav#sidebar li.secao{
+    margin-left: 40px;
+    list-style: disc;
+}
+
+nav#sidebar li.subsecao, li.titulo-tabela{
+    margin-left: 60px;
+    list-style: circle;
+}
+
+nav#sidebar li a {
+    color: var(--cor05);
+    text-decoration: none;
+    font-size: 1em;
+
+    padding: 5px;
+    border-radius: 5px;
+
+    display: block;
+
+}
+
+nav#sidebar li a:hover {
+    background-color: var(--cor01);
+}
+
+#toggle-sidebar {
+    position: fixed;
+    top: 14vh;
+    left: 10px;
+    z-index: 1000; /* Para ficar sobre os outros elementos */
+    
+    background-color: var(--cor05);
+    color: var(--cor00);
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 20px;
+    border-radius: 5px;
+}
+
+#toggle-sidebar:hover {
+    background-color: var(--cor04);
+}
+
+main {
+    background-color: var(--cor00);
+
+    max-width: 1400px;
+    /*min-width: 300px;*/
+    margin: auto;
+    border-radius: 10px;
+    padding: 20px;
+    overflow-x: hidden;
+    box-shadow: 0px 7px 9px rgba(0, 0, 0, 0.307);
+}
+
+
+main .titulo-regulamento {
+    text-align: center;
+
+    font-family: var(--fonte-padrao);
+    font-size: 1.2em;
+    font-weight: bold;
+
+    max-width: 700px;
+    margin: auto;
+}
+
+main .norma-regulamento {
+    text-align: center;
+
+    max-width: 700px;
+    margin: auto;
+}
+
+main .nota-de-consolidacao {
+    font-size: 1em;
+    color: var(--cor06);
+}
+
+main p {
+    font-family: var(--fonte-padrao);
+    color: black;
+    text-align: justify;
+    line-height: 1.75em;
+    font-size: 1.3em;
+
+    margin: 15px 0px;
+}
+
+main h2.capitulo, h2.secao, h3.subsecao, h1.livro, h2.anexo, h2.titulo, h2.titulo-tabela, h2.titulo-capitulo-secao-ou-subsecao {
+    font-size: 1.5em;
+    text-align: center;
+    font-weight: bold;
+
+    margin-top: 20px;
+}
+
+main .nota-explicativa, .texto-revogado {
+    font-size: 1em;
+    color: var(--cor04);
+}
+
+main .nota-de-rodape {
+    font-size: 0.8em;
+    font-weight: bold;
+    color: var(--cor04);
+
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+main .item-nota-de-rodape, main .observacao {
+    font-size: 0.8em;
+    color: var(--cor04);
+
+    margin-top: 0px;
+    margin-bottom: 0px;
+
+}
+
+main .paragrafo, .inciso, .alinea, .item {
+    text-indent: 35px;
+}
+
+main .nao-classificado {
+    background-color: var(--cor00);
+}
+
+main table {
+    width: 100%;
+    font-family: var(--fonte-padrao);
+}
+
+th, td {
+    min-width: 80px;
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+  
+  th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+  
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+
+footer {
+    background-color: var(--cor05);
+    padding: 5px;
+}
+
+footer p, footer a {
+    text-align: center;
+    color: var(--cor00);
+}

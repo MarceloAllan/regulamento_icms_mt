@@ -328,7 +328,7 @@ html_content = re.sub(rules_and_definitions.pattern_artigo_com_numero, r'<strong
 logging.info('TAGs adicionadas com sucesso!')
 
 # Salvando em um arquivo HTML
-with open("../pagina-web/index.html", "w", encoding="utf-8") as file:
+with open("../regulamento-icms-sefazmt/index.html", "w", encoding="utf-8") as file:
     file.write(html_content)
 
 logging.info("Arquivo HTML gerado com sucesso!")
